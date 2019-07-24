@@ -1,7 +1,9 @@
+$shadow: 0 0 10px rgba(0,0,0,0.5);
+$border-base: 1px solid rgb(141, 141, 141);
+
 .search__form{
   width: 70vw;
-  //height: 80vh;
-  background-color: darkgray;
+  box-shadow: $shadow;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,7 +16,7 @@
   height: 30px;
   margin-bottom: 30px;
   box-sizing: border-box;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: $shadow;
   border-radius: 3px;
   padding: 5px;
 }
@@ -28,13 +30,15 @@
 }
 
 .search__form__item{
-  border: 1px solid black;
+  border: $border-base;
   margin: 10px 0 10px 0;
   padding: 5px;
   box-sizing: border-box;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  background-color: rgb(199, 199, 199);
   border-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .search__form__item-error{
@@ -43,11 +47,9 @@
 }
 
 .icon{
-  float: right;
-  //background-color: aqua;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  border: 1px solid rgb(141, 141, 141);
+  border: $border-base;
   width: 140px;
   margin: 0 10px 0 10px;
   padding-left: 5px;
+  display: inline-block;
 }
