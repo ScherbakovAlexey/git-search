@@ -39,6 +39,8 @@ $border-base: 1px solid rgb(141, 141, 141);
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-items: center;
+  min-width: 180px;
 }
 
 .search__form__item-error{
@@ -50,10 +52,15 @@ $border-base: 1px solid rgb(141, 141, 141);
   color: red;
 }
 
-.icon{
+.search__form__item__icon{
   border: $border-base;
   width: 140px;
   margin: 0 10px 0 10px;
   padding-left: 5px;
   display: inline-block;
+}
+
+.search__form__item__link{
+  width: 20vw;
+  padding: 10px;
 }

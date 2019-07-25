@@ -5,24 +5,39 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import {connect} from 'react-redux';
 
-class App extends Component {
-  constructor(props){
-      super(props)
-      this.state = {
-      }
-  }
+interface Item {
+  name: string,
+  html_url: string,
+  stargazers_count: number,
+  watchers_count: number,
+}
+
+interface AppProps {
+  items: Item[],
+  loading: boolean,
+  onGetItems(e: React.ChangeEvent<HTMLInputElement>) : void,
+  error: boolean
+}
+
+interface AppState {
+  items: Item[],
+  loading: boolean,
+  error: boolean
+}
+
+class App extends Component<AppProps> {
 
   render (){
-    console.log('test: ', this.props.items);
+    console.log('test items: ', this.props.items);
     console.log('test loading: ', this.props.loading);
-    const listItems = this.props.items.map((item,index) => {
+    const listItems = this.props.items.map((item: Item, index: number) => {
       if (item.html_url){
         return (
           <li className="search__form__item"key={index}>
-            <a href={item.html_url}>{item.name}</a>
+            <div className="search__form__item__link"><a href={item.html_url}>{item.name}</a></div>
             <div>
-              <span className="icon"><FontAwesomeIcon icon={faEye} /> Watch {item.watchers_count}</span>
-              <span className="icon"><FontAwesomeIcon icon={faStar} /> Star {item.stargazers_count}</span>
+              <span className="search__form__item__icon"><FontAwesomeIcon icon={faEye} /> Watch {item.watchers_count}</span>
+              <span className="search__form__item__icon"><FontAwesomeIcon icon={faStar} /> Star {item.stargazers_count}</span>
             </div>
           </li>
         )
@@ -45,16 +60,17 @@ class App extends Component {
     );
 
   }
+
 }
 
 export default connect(
-  state => ({
+  (state: AppState) => ({
     items: state.items,
     loading: state.loading,
     error: state.error
   }),
   dispatch => ({
-    onGetItems:  (e) => {
+    onGetItems:  (e: React.ChangeEvent<HTMLInputElement>): void => {
       let value = e.target.value.trim();
       if (value.length > 2) dispatch({type: 'GET_ITEMS', payload: value});
     }
