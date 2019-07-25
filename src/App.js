@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import {connect} from 'react-redux';
-import { asyncGetItems } from './actions/search';
 
 class App extends Component {
   constructor(props){
@@ -15,6 +14,7 @@ class App extends Component {
 
   render (){
     console.log('test: ', this.props.items);
+    console.log('test loading: ', this.props.loading);
     const listItems = this.props.items.map((item,index) => {
       if (item.html_url){
         return (
@@ -38,7 +38,9 @@ class App extends Component {
     return (
       <div className="search__form">
         <input className="search__form__input" onChange={this.props.onGetItems} type="text" placeholder="Search a project ..."/>
-        <ul className="search__form__list">{listItems}</ul>
+        {this.props.loading ? <p>Loading...</p> : 
+        this.props.error ? <p className='error'>Error. Something went wrong</p> : 
+        <ul className="search__form__list">{listItems}</ul>}
       </div>
     );
 
@@ -47,13 +49,14 @@ class App extends Component {
 
 export default connect(
   state => ({
-    items: state
+    items: state.items,
+    loading: state.loading,
+    error: state.error
   }),
   dispatch => ({
     onGetItems:  (e) => {
-      let value = e.target.value;
-      console.log('value: ', value);
-      if (value.length > 2) dispatch(asyncGetItems(value));
+      let value = e.target.value.trim();
+      if (value.length > 2) dispatch({type: 'GET_ITEMS', payload: value});
     }
   })
 )(App);
