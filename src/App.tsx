@@ -28,8 +28,6 @@ interface AppState {
 class App extends Component<AppProps> {
 
   render (){
-    console.log('test items: ', this.props.items);
-    console.log('test loading: ', this.props.loading);
     const listItems = this.props.items.map((item: Item, index: number) => {
       if (item.html_url){
         return (
